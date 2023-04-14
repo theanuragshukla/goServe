@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>File Server</title>
+		<style>
+* {
+	margin: 0;
+	box-sizing: border-box;
+	padding: 0;
+}
+*::-webkit-scrollbar {
+	display: none;
+}
+
+*::-moz-scrollbar {
+	display: none;
+}
+
+body {
+	background: #303030;
+}
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #3f51b5;
+	color: white;
+	padding: 5px;
+	width: 100%;
+	min-width: 320px;
+}
+.navbar h1 {
+	font-size: 24px;
+}
+
+.navbar button {
+	background: rgb(196, 0, 70);
+	color: white;
+	height: 100%;
+	border-radius: 10px;
+	padding: 10px;
+	font-size: 16px;
+	border: none;
+}
+
+table {
+	color: #333;
+	width: calc(100% - 20px);
+	min-width: 300px;
+	background: white;
+	border: 1px solid grey;
+	border-collapse: collapse;
+	margin: 10px;
+}
+	  table thead th,
+	  table tfoot th {
+		  color: #777;
+		  background: rgba(0, 0, 0, 0.1);
+	  }
+
+	  table th,
+	  table td {
+		  padding: 0.5em;
+		  border: 1px solid lightgrey;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
+	  }
+	  [data-table-theme*="zebra"] tbody tr:nth-of-type(odd) {
+		  background: rgba(0, 0, 0, 0.05);
+	  }
+	  [data-table-theme*="zebra"][data-table-theme*="dark"]
+	  tbody
+		  tr:nth-of-type(odd) {
+		  background: rgba(255, 255, 255, 0.05);
+	  }
+	  [data-table-theme*="dark"] {
+		  color: #ddd;
+		  background: #333;
+		  font-size: 12pt;
+		  border-collapse: collapse;
+	  }
+	  [data-table-theme*="dark"] thead th,
+	  [data-table-theme*="dark"] tfoot th {
+		  color: #aaa;
+		  background: rgba(0255, 255, 255, 0.15);
+	  }
+	  [data-table-theme*="dark"] caption {
+		  padding: 0.5em;
+	  }
+	  [data-table-theme*="dark"] th,
+	  [data-table-theme*="dark"] td {
+		  padding: 0.5em;
+		  border: 1px solid grey;
+	  }
+	  tr {
+		  width: 100%;
+		  display: grid;
+		  grid-template-columns: 1fr 100px 100px;
+	  }
+	  th {
+		  font-weight: 1000;
+		  color: red;
+	  }
+	  td button {
+		  width: 100%;
+		  padding: 4px;
+		  margin: 0 auto;
+		  border-radius: 4px;
+		  background: rgb(196, 0, 70);
+		  color: white;
+		  border: none;
+	  }
+	  a:hover,
+	  button:hover {
+		  cursor: pointer;
+	  }
+		</style>
+	</head>
+	<body>
+		<div class="navbar">
+			<h1>File Server</h1>
+			<a href="https://theanuragshukla.github.io" target="_blank">
+				<button>About me</button>
+			</a>
+		</div>
+		<table data-table-theme="zebra dark">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Size</th>
+					<th>Download</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{range .}}
+				<tr>
+					<td>{{.Name}}</td>
+					<td>
+						{{if eq .Size "-"}}
+						<a href="/{{.Path}}" ><button>Open</button></a></td>
+					{{else}}
+					{{.Size}}
+					</td>
+					{{end}}
+					<td>
+						<button onclick='(()=>{window.open("/download/"+location.pathname+"/{{.Name}}", "_blank")})()'>Download</button>
+					</td>
+				</tr>
+				{{end}}
+			</tbody>
+		</table>
+	</body>
+</html>
